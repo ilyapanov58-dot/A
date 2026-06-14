@@ -1,5 +1,4 @@
- Lazy 3
-
+''' kotlin
 
 package com.example.dialogv1
 
@@ -204,3 +203,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
+
+'''
