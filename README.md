@@ -1,209 +1,240 @@
-ПИСЯ ПОПА АЛАЛЛАЛАААААААААААААААААААААААААА
+Пример для валидации без готового кода
+    Прмиер может быть использован на всех версиях KOTLI и должен рабоать
+
+ПРИМЕР БЕЗ КОДА И НЕОБХОДИМЫ ИМПОРТЫ
+
 ``` kotlin
-
-package com.example.dialogv1
-
-import android.os.Bundle
+ИМПОРТЫ
+import android.content.Intent
 import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
-// Добавил модель одного заказа
-data class OrderItem(
-    val orderNumber: String,
-    val productName: String,
-    val productDescription: String,
-    val currentPrice: String,
-    val oldPrice: String,
-    val time: String
+
+КОД ДЛЯ КНОПКИ
+Button(
+    onClick = {
+        // сюда вставляется код
+    }
 )
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-
-        setContent {
-            MaterialTheme {
-                OrdersScreen()
-            }
-        }
+ВАЛИДАЦИЯ
+onClick = {
+    // Я добавил проверку логина на пустое поле
+    if (login.isBlank()) {
+        Toast.makeText(this@SignUp, "Заполните поле Логин", Toast.LENGTH_SHORT).show()
     }
 
-    @Preview(showSystemUi = true)
-    @Composable
-    fun OrdersScreen() {
-        // Добавил список из трех элементов
-        val orders = listOf(
-            OrderItem(
-                orderNumber = "№ 854632154",
-                productName = "Nike Air Max 270",
-                productDescription = "Essential",
-                currentPrice = "$270.68",
-                oldPrice = "$150.00",
-                time = "7 мин назад"
-            ),
-            OrderItem(
-                orderNumber = "№ 325556516",
-                productName = "Nike Air Max 270",
-                productDescription = "Essential",
-                currentPrice = "$364.95",
-                oldPrice = "$260.00",
-                time = "10:23"
-            ),
-            OrderItem(
-                orderNumber = "№ 215485412",
-                productName = "Nike Air Max",
-                productDescription = "Essential",
-                currentPrice = "$378.76",
-                oldPrice = "$268.00",
-                time = "18:34"
-            )
-        )
-
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color.White)
-                .padding(horizontal = 20.dp)
-        ) {
-            Spacer(modifier = Modifier.height(72.dp))
-
-            // Добавил прокручиваемый список
-            LazyColumn(
-                modifier = Modifier.fillMaxSize()
-            ) {
-                items(orders) { order ->
-                    OrderCard(order = order)
-
-                    Spacer(modifier = Modifier.height(14.dp))
-                }
-            }
-        }
+    // Я добавил проверку длины логина
+    else if (login.length < 8) {
+        Toast.makeText(this@SignUp, "Логин должен быть не менее 8 символов", Toast.LENGTH_SHORT).show()
     }
 
-    @Composable
-    fun OrderCard(order: OrderItem) {
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(118.dp)
-                .clickable {
-                    // Добавил обработку короткого нажатия
-                    Toast.makeText(
-                        this@MainActivity,
-                        order.orderNumber,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                },
-            shape = RoundedCornerShape(10.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = Color(0xFFF7F7F9)
-            )
-        ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 12.dp, vertical = 10.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                // Добавил изображение товара через простой символ
-                Box(
-                    modifier = Modifier
-                        .size(width = 70.dp, height = 58.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = "👟",
-                        fontSize = 40.sp
-                    )
-                }
+    // Я добавил проверку email на пустое поле
+    else if (email.isBlank()) {
+        Toast.makeText(this@SignUp, "Заполните поле Email", Toast.LENGTH_SHORT).show()
+    }
 
-                Column(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(start = 8.dp)
-                ) {
-                    Text(
-                        text = order.orderNumber,
-                        fontSize = 14.sp,
-                        color = Color(0xFF20AEEB)
-                    )
+    // Я добавил проверку длины email
+    else if (email.length < 12) {
+        Toast.makeText(this@SignUp, "Email должен быть не менее 12 символов", Toast.LENGTH_SHORT).show()
+    }
 
-                    Spacer(modifier = Modifier.height(2.dp))
+    // Я добавил проверку чтобы email содержал знак @
+    else if (!email.contains("@")) {
+        Toast.makeText(this@SignUp, "Email должен содержать символ @", Toast.LENGTH_SHORT).show()
+    }
 
-                    Text(
-                        text = order.productName,
-                        fontSize = 14.sp,
-                        color = Color.Black
-                    )
+    // Я добавил проверку пароля на пустое поле
+    else if (password.isBlank()) {
+        Toast.makeText(this@SignUp, "Заполните поле Пароль", Toast.LENGTH_SHORT).show()
+    }
 
-                    Spacer(modifier = Modifier.height(2.dp))
+    // Я добавил проверку длины пароля
+    else if (password.length < 8) {
+        Toast.makeText(this@SignUp, "Пароль должен быть не менее 8 символов", Toast.LENGTH_SHORT).show()
+    }
 
-                    Text(
-                        text = order.productDescription,
-                        fontSize = 14.sp,
-                        color = Color.Black
-                    )
+    // Я добавил проверку чтобы пароль состоял только из цифр
+    else if (!password.all { it.isDigit() }) {
+        Toast.makeText(this@SignUp, "Пароль должен состоять только из цифр", Toast.LENGTH_SHORT).show()
+    }
 
-                    Spacer(modifier = Modifier.height(4.dp))
+    // Я добавил проверку поля повторения пароля
+    else if (confirmPassword.isBlank()) {
+        Toast.makeText(this@SignUp, "Повторите пароль", Toast.LENGTH_SHORT).show()
+    }
 
-                    Row {
-                        Text(
-                            text = order.currentPrice,
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.Black
-                        )
+    // Я добавил проверку совпадения паролей
+    else if (password != confirmPassword) {
+        Toast.makeText(this@SignUp, "Пароли не совпадают", Toast.LENGTH_SHORT).show()
+    }
 
-                        Text(
-                            text = order.oldPrice,
-                            fontSize = 14.sp,
-                            color = Color(0xFF666666),
-                            modifier = Modifier.padding(start = 16.dp)
-                        )
-                    }
-                }
+    // Я добавил переход на экран входа и передал туда email и пароль
+    else {
+        val intent = Intent(this@SignUp, LoginIn::class.java)
+        intent.putExtra("email", email)
+        intent.putExtra("password", password)
+        startActivity(intent)
+    }
+}
 
-                Text(
-                    text = order.time,
-                    fontSize = 14.sp,
-                    color = Color(0xFF666666),
-                    modifier = Modifier
-                        .align(Alignment.Top)
-                        .padding(top = 8.dp)
-                )
-            }
+ЕСЛИ ДАТА РОЖДЕНИЯ
+else if (data.value.isBlank()) {
+    Toast.makeText(this@SignUp, "Выберите дату рождения", Toast.LENGTH_SHORT).show()
+}
+ЕСЛИ DATEOFBIRTHDAY
+else if (dateOfBirth.isBlank()) {
+    Toast.makeText(this@SignUp, "Выберите дату рождения", Toast.LENGTH_SHORT).show()
+}
+
+ЕСЛИ ЕСТЬ CHECK BOX
+else if (!isPrivacyPolicyChecked) {
+    Toast.makeText(this@SignUp, "Необходимо согласиться с условиями", Toast.LENGTH_SHORT).show()
+}
+
+ПЕРЕХОД ПО ССЫЛКЕ
+modifier = Modifier.clickable {
+    val intent = Intent(this@SignUp, LoginIn::class.java)
+    startActivity(intent)
+}
+
+
+ПРИМЕР ПЕРЕХОДА
+Text(
+    text = "Вход",
+    fontSize = 12.sp,
+    color = Color(0xFF4D81E7),
+    fontWeight = FontWeight.Bold,
+    textAlign = TextAlign.Center,
+    modifier = Modifier
+        .padding(start = 6.dp, top = 24.dp)
+        .clickable {
+            val intent = Intent(this@SignUp, LoginIn::class.java)
+            startActivity(intent)
         }
+)
+
+```
+Так-же второй вариант валадиции по аналогичному примеру
+```Поменять класс на 
+class LoginIn : ComponentActivity() {
+
+Получить E и P
+override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    enableEdgeToEdge()
+
+    val savedEmail = intent.getStringExtra("email") ?: ""
+    val savedPassword = intent.getStringExtra("password") ?: ""
+
+    setContent {
+        LoginScreen(savedEmail, savedPassword)
+    }
+}
+
+getStringExtra("email") — получает email с экрана регистрации
+getStringExtra("password") — получает пароль с экрана регистрации
+?: "" — если данных нет, подставляется пустая строка
+
+Внутри LoginScreen создать переменные
+var email by remember { mutableStateOf(savedEmail) }
+var password by remember { mutableStateOf(savedPassword) }
+var passwordVisible by remember { mutableStateOf(false) }
+
+
+ПРОВЕРКИ ВАЛИДАЦИИ
+onClick = {
+    // Я добавил проверку email на пустое поле
+    if (email.isBlank()) {
+        Toast.makeText(this@LoginIn, "Заполните поле Email", Toast.LENGTH_SHORT).show()
+    }
+
+    // Я добавил проверку чтобы email содержал знак @
+    else if (!email.contains("@")) {
+        Toast.makeText(this@LoginIn, "Email должен содержать символ @", Toast.LENGTH_SHORT).show()
+    }
+
+    // Я добавил проверку пароля на пустое поле
+    else if (password.isBlank()) {
+        Toast.makeText(this@LoginIn, "Заполните поле Пароль", Toast.LENGTH_SHORT).show()
+    }
+
+    // Я вывожу сообщение если вход выполнен успешно
+    else {
+        Toast.makeText(this@LoginIn, "Вход выполнен успешно", Toast.LENGTH_SHORT).show()
     }
 }
 
 
-'''
+ПЕРЕХОД ПО КНОПКИ
+modifier = Modifier.clickable {
+    val intent = Intent(this@LoginIn, SignUp::class.java)
+    startActivity(intent)
+}
+
+ПРИМЕР
+Text(
+    text = "Регистрация",
+    fontSize = 12.sp,
+    color = Color(0xFF4D81E7),
+    fontWeight = FontWeight.Bold,
+    textAlign = TextAlign.Center,
+    modifier = Modifier
+        .padding(start = 6.dp)
+        .clickable {
+            val intent = Intent(this@LoginIn, SignUp::class.java)
+            startActivity(intent)
+        }
+)
+
+
+ОБЯЗАТЕЛЬНАЯ AndroidManifest.xml
+
+Внутри <application> нужно добавить экран LoginIn:
+
+<activity
+    android:name=".LoginIn"
+    android:exported="false" />
+
+А SignUp должен быть стартовым экраном:
+
+<activity
+    android:name=".SignUp"
+    android:exported="true">
+    <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+    </intent-filter>
+</activity>
+
+Полный пример:
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.SignUpLoginInv5">
+
+        <activity
+            android:name=".LoginIn"
+            android:exported="false" />
+
+        <activity
+            android:name=".SignUp"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest> kotlin
+```
+ТАК ЖЕ МОЖНО ИСПОЛЬЗОВАТЬ ГОТОВЫЙ КОД ПО ПРИМЕРУ, КОТОРЫЙ МОЖНО БУДЕТ МОДЕРНИЗИРОВАТЬ ПОД СВОЕ ПРИЛОЖЕНИИЕ
+
